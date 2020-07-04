@@ -55,7 +55,7 @@
 //           <p>{this.props.rating}</p> */}
 //         </div>
 //         )
-//       }) 
+//       })
 //     return (
 //         <div>
 //             <Navbar bg="dark" variant="dark">
@@ -182,7 +182,7 @@ class UpdatePost extends React.Component {
             <Nav.Link className="logout">LogOut</Nav.Link>
           </Nav>
         </Navbar>
-         {displayPosts} 
+        {displayPosts}
       </div>
     );
   }

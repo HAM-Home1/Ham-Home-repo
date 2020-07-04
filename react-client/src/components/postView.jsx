@@ -1,4 +1,3 @@
-
 import React from "react";
 import ReactDOM from "react-dom";
 import ProfileView from "./profileView.jsx";
@@ -23,7 +22,7 @@ class PostView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      file: null
+      file: null,
     };
   }
   //   onFormSubmit(e){
@@ -52,10 +51,17 @@ class PostView extends React.Component {
     const imagesrc = "./uploads/" + $("#imagesrc").val().slice(12);
     const address = $("#address").val();
     const description = $("#description").val();
-    const date = new Date().toString()
-    const rating = 0
+    const date = new Date().toString();
+    const rating = 0;
 
-    if (username !== "" && price !== "" && rooms !== "" && imagesrc !== "" && address !== "" && description !== "") {
+    if (
+      username !== "" &&
+      price !== "" &&
+      rooms !== "" &&
+      imagesrc !== "" &&
+      address !== "" &&
+      description !== ""
+    ) {
       axios.post("/posts", {
         username,
         imagesrc,
@@ -66,6 +72,7 @@ class PostView extends React.Component {
         description,
         date: date,
         availibility: true,
+        messages: "",
       });
       ReactDOM.render(<ProfileView />, document.getElementById("app"));
     }
@@ -97,7 +104,11 @@ class PostView extends React.Component {
                 {" "}
                 <h5>username :</h5>{" "}
               </Form.Label>
-              <Form.Control type="text" id="username" value="Mohamed Amine Oueslati" />
+              <Form.Control
+                type="text"
+                id="username"
+                value="Mohamed Amine Oueslati"
+              />
             </Form.Group>
             <Form.Group as={Col}>
               <Form.Label>
@@ -109,7 +120,7 @@ class PostView extends React.Component {
                 required
                 name="image"
                 id="imagesrc"
-              // onChange={handleChange} isInvalid={!!errors.file} feedback={errors.file} feedbackTooltip
+                // onChange={handleChange} isInvalid={!!errors.file} feedback={errors.file} feedbackTooltip
               />
             </Form.Group>
             <Form.Group as={Col} md="6">
@@ -125,29 +136,33 @@ class PostView extends React.Component {
                   name="price"
                   id="price"
 
-                // value={values.username} onChange={handleChange} isInvalid={!!errors.username}
+                  // value={values.username} onChange={handleChange} isInvalid={!!errors.username}
                 />
                 <InputGroup.Prepend>
                   <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
                 </InputGroup.Prepend>
               </InputGroup>
             </Form.Group>
-            <Form.Group as={Col} >
+            <Form.Group as={Col}>
               <Form.Label>
                 {" "}
                 <h5>Rooms :</h5>{" "}
               </Form.Label>
-              <Form.Control type="text" placeholder="0 bedroom(s) - 0 bathroom(s)" id="rooms" />
+              <Form.Control
+                type="text"
+                placeholder="0 bedroom(s) - 0 bathroom(s)"
+                id="rooms"
+              />
             </Form.Group>
 
-            <Form.Group as={Col} >
+            <Form.Group as={Col}>
               <Form.Label>
                 <h5>Address :</h5>
               </Form.Label>
               <Form.Control placeholder="1234 Main St ,State" id="address" />
             </Form.Group>
 
-            <Form.Group as={Col} >
+            <Form.Group as={Col}>
               <Form.Label>
                 {" "}
                 <h5>Description :</h5>{" "}
@@ -184,8 +199,15 @@ class PostView extends React.Component {
           <br />
           <center>
             <Link to={"/profile"}>
-              <Button as={Col} variant="primary" type="submit"
-                id="submitPost" onClick={this.handleClick.bind(this)}>Submit</Button>
+              <Button
+                as={Col}
+                variant="primary"
+                type="submit"
+                id="submitPost"
+                onClick={this.handleClick.bind(this)}
+              >
+                Submit
+              </Button>
             </Link>
           </center>
         </div>
