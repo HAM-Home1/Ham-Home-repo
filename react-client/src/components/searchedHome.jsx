@@ -51,7 +51,7 @@ class SearchedHome extends React.Component {
     // Emit events
     console.log(message.value, handle, btn, output, feedback);
 
-    /*this is to implement in the new repo */
+     // getting the saved messages from the database and posting them on the output
     var msg = await axios.post("/GetMessages", {
       description: description1,
     });
@@ -74,7 +74,7 @@ class SearchedHome extends React.Component {
         var dat = new Date().toString();
         // console.log(description1);
 
-        // this.setState({ history });
+        
         axios.post("/messages", {
           sender: handle.value,
           message: message.value,
@@ -85,9 +85,9 @@ class SearchedHome extends React.Component {
         $("#message").val("");
       }
     });
-    //the code above should be transfered
-    // getting the saved messages from the database and posting them on the output
-    // axios.get("/posts", {});
+    
+  
+    
 
     message.addEventListener("keypress", function () {
       socket.emit("typing", handle.value);
