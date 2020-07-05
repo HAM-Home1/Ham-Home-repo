@@ -210,7 +210,10 @@ class ProfileView extends React.Component {
             <div className="counter">
               <div className="row">
                 <div className="col-6 col-lg-3">
-                  <div className="count-data text-center">
+                  <div
+                    className="count-data text-center"
+                    onClick={this.addPost.bind(this)}
+                  >
                     {/* <Link to={"/newpost"}> */}
                     <h6 className="count h2" data-to="500" data-speed="500">
                       <img

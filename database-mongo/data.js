@@ -15,6 +15,7 @@ const samplePosts = [
       "Owner pay water & sewer Fantastic location you will love this beautifully light and bright fully renovated house 4 bedroom & 2 bathroom with garage driveway backyard Near major roadways and bus transportation with a fast & easy commute to NYC convenient to everything.You have plenty of outdoor space to relax or enjoy and barbequing.No pets & no smoking",
     date: "2018-04-19T12:59-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Ahmed Trabelsi",
@@ -29,6 +30,7 @@ const samplePosts = [
       "Updated 3-bedroom apartment in a beautiful home that is in a very convenient location.",
     date: "2019-09-22T12:59-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Marwen Meftehi",
@@ -46,6 +48,7 @@ const samplePosts = [
       "Spacious one bedroom apartment for rent in Richmond Valley!! This immaculate 2nd floor apartment is located on a beautiful block with plenty of parking. Only a two block walk to the train. Close to Expwy & Outerbridge. Short walk to Bricktown Mall/Target shopping center.",
     date: "2019-01-07T12:59-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Moufida Abadi",
@@ -63,6 +66,7 @@ const samplePosts = [
       "Center Hall Colonial Located In The Heart Of Fresh Meadows Features 5 Bedrooms, 2.5 Bathrooms and Extra Large Backyard.",
     date: "2018-11-07T12:59-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Zubayr Shamoun",
@@ -81,6 +85,7 @@ const samplePosts = [
       "Whole Gravesend House for Rent . Ave T~ West St. 4bd with 3 bathrooms and Private parking, $6000 neg. www.TeamYona.com. Wide Comfortable home 3 baths ONE ON EACH FLOOR 4 Bedrooms 3 on second floor, a 4th in basement Master is nice and big Renovated kitchen with stainless steel appliance, back door to back yard and garage! Separate Dining Room and Living Room on main level, with full bath. Nice layout and flow Finished basement + guest room + full bathroom. Laundry hook up in the basement. Large Backyard GOOD INCOME & Credit over 700 LEASE SIGNING: One month security First months rent One month agents fee Follow me on instagram @teamyonaschampions",
     date: "2017-12-12T12:59-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Salwa Badra",
@@ -98,6 +103,7 @@ const samplePosts = [
       "New To The Market and will not last long. This is a Spacious 2 bedroom on the First Floor of a 2 Family Home with access to yard space. Completely Renovated Move in Ready. Chef inspired Galley Style Kitchen with Dishwasher Granite Countertops and Stainless Steel Appliances. Large Open Living Room and Formal dining room. Immaculate Bathroom with Floor to ceiling tiles and 2 Bedrooms queen size Br and a smaller bedroom. Close to stores transportation and shopping. Heat gas and water included. Sorry no pets. Move in ASAP",
     date: "2019-08-08T12:59-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Inaam Shammas",
@@ -114,6 +120,7 @@ const samplePosts = [
       "First floor two bedroom apartment. Heat and hot water is included. Close to shopping center, transportation and parks. No pets & no smoking.",
     date: "2020-02-02T12:59-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Wassim Laghnej",
@@ -131,6 +138,7 @@ const samplePosts = [
       "Nestled in bustling Old Town Nice two blocks from the famous Promenade des Anglais (Beach) and one block from the Nice Opera House and the Flower Market (Marche aux Fleurs Cours Saleya) available for private sale this is this rarely available gem. Located on the 3rd Floor of an 18 Century walk-up building the space has been entirely renovated with respect and taste. The sunny south-facing living space features 3 meter high ceilings and steps out to a little balcony perfect for al fresco petite dejeuner The lower floor features a good-sized bedroom, large enough for a queen size bed and built-in storage and en-suite bathroom whilst the loft space above features two single beds and another bathroom.",
     date: "2020-04-02T12:59-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Fatma Gharsallah",
@@ -148,6 +156,7 @@ const samplePosts = [
       "Popular neighborhood across for The University of South Alabama. 4 bedrooms 2 Baths. One car garage attached. Pets are negotiable and require nonrefundable $275 pet fee per animal.",
     date: "2019-09-22T12:59-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Imad al Din F Boulos",
@@ -164,6 +173,7 @@ const samplePosts = [
       "A green community that perfectly captures the essence of Colorado living, The Huntington invites you to indulge in a vibrant suburban lifestyle.",
     date: "2014-09-22T12:59-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Wafiya K Nader",
@@ -181,6 +191,7 @@ const samplePosts = [
       "Modern Luxury, Classic Living,We are now accepting in-person and self-guided tours via scheduled appointments only. Our virtual tours are also available. Please schedule yours today. Minutes from DTC and Light Rail, Alta Springs Apartments for rent in Denver, Colorado",
     date: "2016-09-22T10:27-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Saber falah",
@@ -198,6 +209,7 @@ const samplePosts = [
       " Our community provides a great location close to the Denver Tech Center. We are less than a mile from the light rail station.",
     date: "2018-05-10T20:59-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Jalal Gasmi",
@@ -215,6 +227,7 @@ const samplePosts = [
       " Fantastic curb appeal and meticulously maintained inside and out home in the desirable Highlands Ranch - Northridge Area",
     date: "2020-08-15T10:15-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Asilah N Shalhoub",
@@ -232,6 +245,7 @@ const samplePosts = [
       " We are now accepting in-person tours via scheduled appointments only. Our virtual tours are also available. Please contact our leasing team",
     date: "2019-02-16T00:15-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Zain A Botros",
@@ -249,6 +263,7 @@ const samplePosts = [
       " Call us today for more information! NOW OPEN! Volta at Voyager raises the bar for modern, adventurous apartment living in Colorado Springs.",
     date: "2019-10-03T13:15-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Abdallah omri",
@@ -266,6 +281,7 @@ const samplePosts = [
       " Our spacious apartments are located in the foothills of Colorado Springs. Just a hop skip and jump to Garden of the Gods Park and Pike's Peak give you all of the Colorado wonderful right outside your door.",
     date: "2018-04-28T19:15-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Wahbiyah Q Bata",
@@ -283,6 +299,7 @@ const samplePosts = [
       "  LIVINGThe Tenzing Luxury Apartments, located in the heart of Westminster, Colorado offer you a connected lifestyle.",
     date: "2017-12-10T09:12-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Nidal  Zogby",
@@ -300,6 +317,7 @@ const samplePosts = [
       "  Visit Aspen Ridge Aurora CO Apartments! Our large one, two,and three-bedroom apartments are available in a convenient location ",
     date: "2019-07-02T18:12-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Tarek ben ammar",
@@ -317,6 +335,7 @@ const samplePosts = [
       "  Waived Fees -Lease one of our beautiful homes to receive waived app and admin fees, PLUS 3 months of FREE parking! 1 month free on select units! Call Today!",
     date: "2014-05-19T06:42-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Houssem Guesmi",
@@ -335,6 +354,7 @@ const samplePosts = [
       "  We're here to help you find your new home. You can apply online 24/7, schedule a video tour with one of our sales associates, or visit the property in person via self-guided tours by appointment only. Contact us for more details.",
     date: "2020-04-01T03:12-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Hamza Ouni",
@@ -353,6 +373,7 @@ const samplePosts = [
       "  Smoke free apartments and townhomes in Centennial, CO with washer/dryer, patio/balcony and fireplace. Pet friendly, 24 hour fitness center, swimming pool. Near C 470, I 25, Park Meadows and DTC. Guarantors welcome.",
     date: "2013-09-01T04:30-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Adam boulawdhen",
@@ -371,6 +392,7 @@ const samplePosts = [
       "  Located in Monument, Colorado at the Foothills of the Rocky Mountains, Vistas at Jackson Creek provides the ultimate Colorado lifestyle with amenities you don't need big cities for. Centrally located between Colorado Springs and Castle Rock",
     date: "2018-10-12T04:30-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Bassem Bel Haj",
@@ -388,7 +410,9 @@ const samplePosts = [
       "  Boulder Creek Apartments with washers/dryers and private patios/balconies. Pet friendly, smoke free community has two swimming pools, 24 hour fitness center and community bark park. Just 5 minutes from the University of Colorado at Boulder.",
     date: "2020-07-06T07:30-0500",
     availibility: true,
+    messages: "",
   },
+
   {
     username: "Khaled Ayed",
     imagesrc: [
@@ -405,6 +429,7 @@ const samplePosts = [
       "  Beautifully renovated 1911 bungalow in the heart of Berkeley. Walk to Tennyson Street and Berkeley Park and Lake. Just steps to coffee, sushi and yoga (on the same street). All new stainless steel appliances. En suite master bedroom and bathroom. Master bathroom has heated floors. European style showers in master bathroom and guest bath.",
     date: "2019-07-14T22:02-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Ranoua Lachheb",
@@ -422,6 +447,7 @@ const samplePosts = [
       "  Beautifully renovated 1911 bungalow in the heart of Berkeley. Walk to Tennyson Street and Berkeley Park and Lake. Just steps to coffee, sushi and yoga (on the same street). All new stainless steel appliances. En suite master bedroom and bathroom. Master bathroom has heated floors. European style showers in master bathroom and guest bath.",
     date: "2019-07-14T22:02-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Charaf Chroudi",
@@ -440,6 +466,7 @@ const samplePosts = [
 
     date: "2017-01-14T15:00-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Ahmed Fenny",
@@ -458,6 +485,7 @@ const samplePosts = [
 
     date: "2018-10-20T06:10-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Siwar Hkimi",
@@ -476,6 +504,7 @@ const samplePosts = [
 
     date: "2016-03-03T19:10-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Khaoula BenSaid",
@@ -494,6 +523,7 @@ const samplePosts = [
 
     date: "2019-06-22T17:10-0500",
     availibility: true,
+    messages: "",
   },
   {
     username: "Oussama Sferi",
@@ -512,6 +542,7 @@ const samplePosts = [
 
     date: "2018-08-24T01:20-0500",
     availibility: true,
+    messages: "",
   },
 ];
 

@@ -353,3 +353,35 @@ mark {
   width: 100%;
   border-radius: 5px;
 }
+
+/*update component css */
+
+#updateDiv {
+  border: 2px solid grey;
+  border-radius: 5px;
+  overflow: scroll;
+}
+
+#updateDivPrice {
+  border: 2px solid grey;
+  border-radius: 5px;
+}
+
+#myModal {
+  display: none;
+  position: absolute;
+  margin-top: 220px;
+  margin-left: 50%;
+}
+
+#myModal1 {
+  display: none;
+  position: absolute;
+  margin-top: 220px;
+  margin-left: 50%;
+}
+
+
+#logoImage {
+  margin-top: 50px;
+}
