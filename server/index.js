@@ -1,5 +1,4 @@
 var express = require("express");
-
 var users = require("../routes/users.js");
 var auth = require("../routes/auth.js");
 var bodyParser = require("body-parser");
@@ -9,8 +8,6 @@ var posts = require("../database-mongo");
 var path = require("path");
 var socket = require("socket.io");
 var cors = require("cors");
-var bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const middleware = require("../middlewares/middleware.js");
 
 require("dotenv").config();
