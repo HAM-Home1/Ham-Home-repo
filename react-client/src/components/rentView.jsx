@@ -142,9 +142,9 @@ class RentView extends React.Component {
     const displayPosts = this.state.posts.map((item, i) => {
       var arr = item.imagesrc.split(",");
       return (
-        <div className="cardBox">
+        <div className="cardBox" id="rentContainer">
           <MDBRow className="cardBox1">
-            <MDBCol md="4">
+            <MDBCol id="cardBox2" md="4">
               <MDBCard>
                 <MDBCardImage
                   top
@@ -153,6 +153,7 @@ class RentView extends React.Component {
                   hover
                   waves
                   alt="MDBCard image cap"
+                  id="cardBoxImage"
                 />
                 <MDBCardBody className="elegant-color white-text rounded-bottom">
                   <a

@@ -31,6 +31,26 @@
   /* float: right; */
   /* margin-top: 20px; */
   margin-left: 10px;
+  width: 100%;
+}
+#cardBox2 {
+  display: inline;
+  /* float: right; */
+  /* margin-top: 20px; */
+  margin-left: 10px;
+  width: 100%;
+}
+#rentContainer {
+  border: 1px solid gray;
+  width: 24%;
+  float: left;
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: 10px;
+  height: 650px;
+}
+#cardBoxImage {
+  height: 280px;
 }
 
 .cardBox {
