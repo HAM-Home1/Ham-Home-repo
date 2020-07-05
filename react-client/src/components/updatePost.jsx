@@ -53,6 +53,13 @@ class UpdatePost extends React.Component {
       imagesrc:this.state.posts[i].imagesrc
     })
   }
+
+  DeletePost(i) {
+    axios.post("/delete", {
+      imagesrc:this.state.posts[i].imagesrc
+    })
+    ReactDOM.render(<ProfileView />, document.getElementById("app"));
+  }
   // handleChange(i) {
   //   console.log(event.target.value)
   //   console.log($(".priceupdate").eq(1).text())
@@ -87,6 +94,7 @@ class UpdatePost extends React.Component {
           <p className="postDetails">Rating : {item.rating}</p>
           <p className="postDetails">Date : {item.date}</p>
           <button className="postDetails" onClick={this.SaveValue.bind(this, i)}>Save</button>
+          <button className="postDetails" onClick={this.DeletePost.bind(this, i)}>Delete</button>
         </div>
       );
     });

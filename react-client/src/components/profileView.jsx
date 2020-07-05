@@ -27,6 +27,26 @@ import {
   CarouselItem,
   Accordion,
 } from "react-bootstrap";
+import {
+  MDBNavbar,
+  MDBNavbarBrand,
+  MDBNavbarNav,
+  MDBNavbarToggler,
+  MDBCollapse,
+  MDBNavItem,
+  MDBNavLink,
+  MDBContainer,
+  MDBMask,
+  MDBView,
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBCardTitle,
+  MDBCardText,
+  MDBRow,
+  MDBCol,
+  MDBIcon,
+} from "mdbreact";
 
 class ProfileView extends React.Component {
   constructor(props) {
@@ -72,15 +92,59 @@ class ProfileView extends React.Component {
   render() {
       const displayPosts = this.state.posts.map((item,i)=> {
         return (
-          <div className= "profilePosts" onClick={this.postDetails.bind(this,i)} key={i} >
-          <p className="postDetails"><img src={item.imagesrc} width='280px' height='170px'/></p>
-          <p className="postDetails">Price : ${item.price}</p>
-          <p className="postDetails">Rooms : {item.rooms}</p>
-          <p className="postDetails">Address : {item.address}</p>
-          {/* <p>{this.props.description}</p>
-          <p>{this.props.date}</p>
-          <p>{this.props.rating}</p> */}
+          <div className="cardBox">
+          <MDBRow className="cardBox1">
+            <MDBCol md="5">
+              <MDBCard>
+                <MDBCardImage
+                  top
+                  src={item.imagesrc}
+                  overlay="white-slight"
+                  hover
+                  waves
+                  alt="MDBCard image cap"
+                />
+                <MDBCardBody className="elegant-color white-text rounded-bottom">
+                  <a
+                    href="#!"
+                    className="activator waves-effect waves-light mr-4"
+                  >
+                    <MDBIcon icon="share-alt" className="white-text" />
+                  </a>
+                  <MDBCardTitle>Price : ${item.price}</MDBCardTitle>
+                  <hr className="hr-light" />
+                  <MDBCardText className="white-text">
+                    Rooms : {item.rooms}
+                  </MDBCardText>
+                  <MDBCardText className="white-text">
+                    Address : {item.address}
+                  </MDBCardText>
+                  <a
+                    href="#!"
+                    className="black-text d-flex justify-content-end"
+                  >
+                    <h5
+                      className="white-text"
+                      onClick={this.postDetails.bind(this,i)} key={i}
+                    >
+                      Read more
+                      <MDBIcon icon="angle-double-right" className="ml-2" />
+                    </h5>
+                  </a>
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+          </MDBRow>
         </div>
+        //   <div className= "profilePosts" onClick={this.postDetails.bind(this,i)} key={i} >
+        //   <p className="postDetails"><img src={item.imagesrc} width='280px' height='170px'/></p>
+        //   <p className="postDetails">Price : ${item.price}</p>
+        //   <p className="postDetails">Rooms : {item.rooms}</p>
+        //   <p className="postDetails">Address : {item.address}</p>
+        //   {/* <p>{this.props.description}</p>
+        //   <p>{this.props.date}</p>
+        //   <p>{this.props.rating}</p> */}
+        // </div>
         )
       }) 
     return (
@@ -140,11 +204,13 @@ class ProfileView extends React.Component {
             <div className="counter">
               <div className="row">
                 <div className="col-6 col-lg-3">
-                  <div className="count-data text-center" onClick={this.addPost.bind(this)}>
+                  <div className="count-data text-center" >
+                  {/* <Link to={"/newpost"}> */}
                     <h6 className="count h2" data-to="500" data-speed="500">
                       <img src="https://cdn.onlinewebfonts.com/svg/img_259698.png" width="30px" />
                     </h6>
                     <p className="m-0px font-w-600">Post</p>
+                    {/* </Link> */}
                   </div>
                 </div>
                 <div className="col-6 col-lg-3">

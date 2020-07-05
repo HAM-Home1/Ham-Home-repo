@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/hamHome",{ useMongoClient:true});
+mongoose.connect("mongodb://localhost:27017/hamHome", { useMongoClient: true });
 
 var db = mongoose.connection;
 
@@ -44,6 +44,7 @@ var postSchema = mongoose.Schema({
   description: String,
   date: String,
   availibility: Boolean,
+  messages: String,
 });
 
 var Post = mongoose.model("Post", postSchema);
@@ -61,7 +62,7 @@ var selectAllPost = function (callback) {
 var messageSchema = mongoose.Schema({
   sender: String,
   message: String,
-  date:String
+  date: String,
 });
 var Message = mongoose.model("Message", messageSchema);
 var selectAllMessage = function (callback) {

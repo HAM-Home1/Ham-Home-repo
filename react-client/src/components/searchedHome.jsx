@@ -5,6 +5,7 @@ import ProfileView from "./profileView.jsx";
 import SelectAction from "./selectAction.jsx";
 import axios from "axios";
 import $ from "jquery";
+import "regenerator-runtime/runtime";
 import {
   Form,
   Button,
@@ -26,7 +27,7 @@ class SearchedHome extends React.Component {
     super(props);
     this.state = {};
   }
-  
+
   seeProfile() {
     ReactDOM.render(<ProfileView />, document.getElementById("app"));
   }
@@ -34,54 +35,100 @@ class SearchedHome extends React.Component {
     ReactDOM.render(<SelectAction />, document.getElementById("app"));
   }
 
-  chat() {
+  async chat() {
+    var description1 = this.props.post.description;
     $("#chatbox").show();
     // Make connection
     var socket = io.connect("http://localhost:3000");
+
     // Query DOM
     var message = document.getElementById("message"),
       handle = document.getElementById("handle"),
       btn = document.getElementById("send"),
       output = document.getElementById("output"),
       feedback = document.getElementById("feedback");
+
     // Emit events
     console.log(message.value, handle, btn, output, feedback);
-    btn.addEventListener("click", function () {
-      socket.emit("chat", {
-        message: message.value,
-        handle: handle.value,
-      });
-      console.log(message.value, handle.value);
-      var dat = new Date().toString();
-      axios.post("/messages", {
-        sender: handle.value,
-        message: message.value,
-        date: dat,
-      });
-      message.value = "";
+
+    // getting the saved messages from the database and posting them on the output
+    var msg = await axios.post("/GetMessages", {
+      description: description1,
     });
+    var getall = "[" + msg.data.slice(0, msg.data.length - 1) + "]";
+    // output.value === msg;
+    var resultmsg = JSON.parse(getall);
+    console.log(resultmsg);
+    // $("#output").html("");
+    resultmsg.map((msg, i) => {
+      socket.emit("chat", { message: msg.message, handle: msg.sender });
+    });
+    btn.addEventListener("click", function () {
+      if ($("#message").val() && $("#handle").val()) {
+        socket.emit("chat", {
+          message: message.value,
+          handle: handle.value,
+        });
+        $("#output").scrollTop($("#output")[0].scrollHeight);
+        console.log(message.value, handle.value);
+        var dat = new Date().toString();
+        // console.log(description1);
+
+
+        axios.post("/messages", {
+          sender: handle.value,
+          message: message.value,
+          date: dat,
+          description: description1,
+        });
+        $("#chat-window").scrollTop($("#chat-window")[0].scrollHeight);
+        $("#message").val("");
+      }
+    });
+
+
+
+
     message.addEventListener("keypress", function () {
       socket.emit("typing", handle.value);
     });
+
     // Listen for events
     socket.on("chat", function (data) {
       feedback.innerHTML = "";
       output.innerHTML +=
         "<p><strong>" + data.handle + ": </strong>" + data.message + "</p>";
     });
+
     socket.on("typing", function (data) {
       feedback.innerHTML =
         "<p><em>" + data + " is typing a message...</em></p>";
     });
+
     // ReactDOM.render(<ChatRoom />, document.getElementById("chatbox"));
     // // $("#startchat").hide();
   }
-
   render() {
+    var arrImage = this.props.post.imagesrc.split(',')
+    var displayImage = arrImage.map((item) => {
+      return (
+        <Carousel.Item>
+          <img
+            className="imagecaroussel"
+            className="d-block w-100"
+            src={item}
+            alt="First slide"
+          />
+        </Carousel.Item>
+      )
+    })
+
     return (
       <div>
         <Navbar bg="dark" variant="dark">
-          <Navbar.Brand onClick={this.seeSelectAction.bind(this)}>HAMhome</Navbar.Brand>
+          <Navbar.Brand onClick={this.seeSelectAction.bind(this)}>
+            HAMhome
+          </Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link></Nav.Link>
             <Nav.Link onClick={this.seeProfile.bind(this)}>Profile</Nav.Link>
@@ -90,15 +137,8 @@ class SearchedHome extends React.Component {
         </Navbar>
         <div id="caroussel">
           <Carousel>
-            <Carousel.Item>
-              <img
-                id="imagecaroussel"
-                className="d-block w-100"
-                src={this.props.post.imagesrc}
-                alt="First slide"
-              />
-            </Carousel.Item>
-            <Carousel.Item>
+            {displayImage}
+            {/* <Carousel.Item>
               <img
                 id="imagecaroussel"
                 className="d-block w-100"
@@ -113,7 +153,7 @@ class SearchedHome extends React.Component {
                 src="https://d2u8towkwolubl.cloudfront.net/wp-content/uploads/2019/08/RentalHome.jpg"
                 alt="Third slide"
               />
-            </Carousel.Item>
+            </Carousel.Item> */}
           </Carousel>
         </div>
         <div id="context">
@@ -125,10 +165,7 @@ class SearchedHome extends React.Component {
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="0">
-                <Card.Body>
-                  {" "}
-                  {this.props.post.description}{" "}
-                </Card.Body>
+                <Card.Body> {this.props.post.description} </Card.Body>
               </Accordion.Collapse>
             </Card>
             <Card>
@@ -138,10 +175,7 @@ class SearchedHome extends React.Component {
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="1">
-                <Card.Body>
-                  {" "}
-                  {this.props.post.address}{" "}
-                </Card.Body>
+                <Card.Body> {this.props.post.address} </Card.Body>
               </Accordion.Collapse>
             </Card>
             <Card>
@@ -154,13 +188,12 @@ class SearchedHome extends React.Component {
                 <Card.Body>
                   {" "}
                   Price : ${this.props.post.price}
-                  <br/>
+                  <br />
                   Rooms : {this.props.post.rooms}
-                  <br/>
+                  <br />
                   Rating : {this.props.post.rating}
-                  <br/>
-                  Availibility : {this.props.post.availibility}
-                  {" "}
+                  <br />
+                  Availibility : {this.props.post.availibility}{" "}
                 </Card.Body>
               </Accordion.Collapse>
             </Card>

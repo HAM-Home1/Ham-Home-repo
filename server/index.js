@@ -1,10 +1,11 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var multer = require("multer");
-var samplePosts = require("../database-mongo/data.js")
+var samplePosts = require("../database-mongo/data.js");
 var posts = require("../database-mongo");
 var path = require("path");
 var socket = require("socket.io");
+
 
 var app = express();
 app.use(bodyParser.json());
@@ -14,11 +15,10 @@ const insertSamplePosts = function () {
   samplePosts.samplePosts.map((element) => {
     posts.Post.find({ description: element.description }, function (err, docs) {
       if (docs.length === 0) {
-        posts.Post.create(element)
-          .then(() => posts.db.disconnect());
+        posts.Post.create(element).then(() => posts.db.disconnect());
       }
-    })
-  })
+    });
+  });
 };
 insertSamplePosts();
 
@@ -60,7 +60,6 @@ io.on("connection", (socket) => {
 //   })
 // })
 
-
 app.post("/posts", (req, res) => {
   console.log(req.body);
   posts.Post.create(req.body);
@@ -87,6 +86,14 @@ app.post("/update", (req, res) => {
   })
 });
 
+app.post("/delete", (req, res) => {
+  console.log(req.body)
+  posts.Post.deleteOne({ imagesrc: req.body.imagesrc } , function (err) {
+    if(err) console.log(err);
+    console.log("Successful deletion")
+  })
+ })
+
 app.get("/posts", (req, res) => {
   posts.Post.find({ username: "Mohamed Amine Oueslati" }, function (err, data) {
     if (err) {
@@ -94,7 +101,7 @@ app.get("/posts", (req, res) => {
     } else {
       res.json(data);
     }
-  })
+  });
 });
 
 app.get("/rentPosts1", (req, res) => {
@@ -104,11 +111,30 @@ app.get("/rentPosts1", (req, res) => {
     } else {
       res.json(data);
     }
-  })
+  });
+});
+
+app.post("/GetMessages", (req, res) => {
+  posts.Post.find({ description: req.body.description }, (err, docs) => {
+    res.send(docs[0]._doc.messages);
+  });
 });
 
 app.post("/messages", (req, res) => {
-  posts.Message.create(req.body);
+  posts.Post.find({ description: req.body.description }, (err, docs) => {
+    let newMessage = docs[0]._doc.messages + JSON.stringify(req.body) + ",";
+    console.log("newMessage", newMessage);
+    console.log(docs[0]._doc.messages);
+    posts.Post.update(
+      { description: req.body.description },
+      { messages: newMessage },
+      (err) => {
+        if (!err) {
+          console.log("updated");
+        }
+      }
+    );
+  });
 });
 
 app.post("/search", (req, res) => {
@@ -117,39 +143,44 @@ app.post("/search", (req, res) => {
     if (err) {
       res.sendStatus(500);
     } else {
-      var data = []
+      var data = [];
       houses.map((house) => {
         if (req.body.price) {
-          var [min, max] = req.body.price.split('-')
+          var [min, max] = req.body.price.split("-");
           if (house.price >= min && house.price <= max) {
-            if (house.address.split(',')[1] === req.body.city || !req.body.city) {
+            if (
+              house.address.split(",")[1] === req.body.city ||
+              !req.body.city
+            ) {
               if (!req.body.rooms || req.body.rooms === house.rooms) {
-                data.push(house)
+                data.push(house);
               }
             }
           }
-        } else if (!req.body.price)  {
-          if (house.address.split(',')[1] === req.body.city || !req.body.city) {
+        } else if (!req.body.price) {
+          if (house.address.split(",")[1] === req.body.city || !req.body.city) {
             if (!req.body.rooms || req.body.rooms === house.rooms) {
-              data.push(house)
+              data.push(house);
             }
           }
         }
-      })
-      console.log(data.length)
+      });
+      console.log(data.length);
       res.json(data);
     }
-  })
+  });
 });
 // Fixing the 'cannot GET /URL' error on refresh with React Router
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, '../react-client/dist/index.html'), function(err) {
-    if (err) {
-      res.status(500).send(err)
+app.get("/*", function (req, res) {
+  res.sendFile(
+    path.join(__dirname, "../react-client/dist/index.html"),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
     }
-  })
-})
-
+  );
+});
 
 // app.get("/posts", (req, res) => {
 //   posts.selectAllPost((err, data) => {

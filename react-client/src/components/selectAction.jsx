@@ -43,18 +43,16 @@ class SelectAction extends React.Component {
   render() {
     return (
       <div>
+      <Router>
         <Navbar bg="dark" variant="dark">
           <Navbar.Brand>HAMhome</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link></Nav.Link>
-            {/* <Link to={"/profile"}> */}
-            <Nav.Link onClick={this.seeProfile.bind(this)}>Profile</Nav.Link>
-            {/* </Link> */}
-            <Link to={"/"}>
-            <Nav.Link className="logout">LogOut</Nav.Link>
-            </Link>
+            <Nav.Link to={"/profile"} onClick={this.seeProfile.bind(this)}>Profile</Nav.Link>
+            <Nav.Link to={"/"} className="logout">LogOut</Nav.Link>
           </Nav>
         </Navbar>
+        </Router>
         <center>
           <div>
             <h1>Get Started With HAMhome</h1>
@@ -108,6 +106,7 @@ class SelectAction extends React.Component {
           </Card>
         </center>
       </div>
+      
     );
   }
 }

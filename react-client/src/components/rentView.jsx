@@ -1,15 +1,13 @@
 import React from "react";
 import Select from "react-select";
+import SearchedHome from "./searchedHome.jsx";
 import $ from "jquery";
 import axios from "axios";
+import ReactDOM from "react-dom";
 import "./rentView.css";
-const mdbreact = require('mdbreact'); const { Button, Collapse } = mdbreact;
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+const mdbreact = require("mdbreact");
+const { Button, Collapse } = mdbreact;
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -84,23 +82,22 @@ const rooms = [
 
 class RentView extends React.Component {
   constructor(props) {
-    super(props)
-    this.state= {
+    super(props);
+    this.state = {
       collapse: false,
       isWideEnough: false,
-      city:null,
-      rooms:null,
-      price:null,
-      posts:[]
-    }
+      city: null,
+      rooms: null,
+      price: null,
+      posts: [],
+    };
   }
 
   componentDidMount() {
-    axios.get("/rentPosts1")
-    .then(res => {
+    axios.get("/rentPosts1").then((res) => {
       const posts = res.data;
       this.setState({ posts });
-    })
+    });
   }
 
   NavbarOnClick() {
@@ -108,32 +105,42 @@ class RentView extends React.Component {
       collapse: !this.state.collapse,
     });
   }
-  handleChange1 (city) {
-    this.setState({city: city.label})
+  handleChange1(city) {
+    this.setState({ city: city.label });
   }
-  handleChange2 (rooms) {
-    this.setState({rooms: rooms.label})
+  handleChange2(rooms) {
+    this.setState({ rooms: rooms.label });
   }
-  handleChange3 (price) {
-    this.setState({price: price.label})
+  handleChange3(price) {
+    this.setState({ price: price.label });
   }
-  handleClick () {
-    console.log(this.state.city)
-    console.log(this.state.rooms)
-    console.log(this.state.price)
-    axios.post("/search", {
-      city:this.state.city,
-      rooms:this.state.rooms,
-      price:this.state.price
-    }).then(res => {
-          const posts = res.data;
-          this.setState({ posts });
-          console.log(this.state.posts)
-        })
+  handleClick() {
+    console.log(this.state.city);
+    console.log(this.state.rooms);
+    console.log(this.state.price);
+    axios
+      .post("/search", {
+        city: this.state.city,
+        rooms: this.state.rooms,
+        price: this.state.price,
+      })
+      .then((res) => {
+        const posts = res.data;
+        this.setState({ posts });
+        console.log(this.state.posts);
+      });
   }
+
+  showMore(i) {
+    ReactDOM.render(
+      <SearchedHome post={this.state.posts[i]} />,
+      document.getElementById("app")
+    );
+  }
+
   render() {
-    const displayPosts = this.state.posts.map((item,i)=> {
-      var arr = item.imagesrc.split(',')
+    const displayPosts = this.state.posts.map((item, i) => {
+      var arr = item.imagesrc.split(",");
       return (
         <div className="cardBox">
           <MDBRow className="cardBox1">
@@ -156,13 +163,20 @@ class RentView extends React.Component {
                   </a>
                   <MDBCardTitle>Price : ${item.price}</MDBCardTitle>
                   <hr className="hr-light" />
-                  <MDBCardText className="white-text">Rooms : {item.rooms}</MDBCardText>
-                  <MDBCardText className="white-text">Address : {item.address}</MDBCardText>
+                  <MDBCardText className="white-text">
+                    Rooms : {item.rooms}
+                  </MDBCardText>
+                  <MDBCardText className="white-text">
+                    Address : {item.address}
+                  </MDBCardText>
                   <a
                     href="#!"
                     className="black-text d-flex justify-content-end"
                   >
-                    <h5 className="white-text">
+                    <h5
+                      className="white-text"
+                      onClick={this.showMore.bind(this, i)}
+                    >
                       Read more
                       <MDBIcon icon="angle-double-right" className="ml-2" />
                     </h5>
@@ -172,78 +186,90 @@ class RentView extends React.Component {
             </MDBCol>
           </MDBRow>
         </div>
-      )
-     })
+      );
+    });
     return (
       <div>
         <div id="image">
-        <header>
-          <Router>
-            <MDBNavbar
-              color="bg-primary"
-              fixed="top"
-              dark
-              expand="md"
-              scrolling
-              transparent
-            >
-              <MDBNavbarBrand href="/">
-                <strong>Navbar</strong>
-              </MDBNavbarBrand>
-              {!this.state.isWideEnough && (
-                <MDBNavbarToggler onClick={this.NavbarOnClick.bind(this)} />
-              )}
-              <MDBCollapse isOpen={this.state.collapse} navbar>
-                <MDBNavbarNav left>
-                  <MDBNavItem active>
-                    <MDBNavLink to="/selectaction">Home</MDBNavLink>
-                  </MDBNavItem>
-                  <MDBNavItem>
-                    <MDBNavLink to="#">Link</MDBNavLink>
-                  </MDBNavItem>
-                  <MDBNavItem>
-                    <MDBNavLink to="/profile">Profile</MDBNavLink>
-                  </MDBNavItem>
-                </MDBNavbarNav>
-              </MDBCollapse>
-            </MDBNavbar>
-          </Router>
-        </header>
-      </div>
-      <div>
+          <header>
+            <Router>
+              <MDBNavbar
+                color="bg-primary"
+                fixed="top"
+                dark
+                expand="md"
+                scrolling
+                transparent
+              >
+                <MDBNavbarBrand href="/">
+                  <strong>Navbar</strong>
+                </MDBNavbarBrand>
+                {!this.state.isWideEnough && (
+                  <MDBNavbarToggler onClick={this.NavbarOnClick.bind(this)} />
+                )}
+                <MDBCollapse isOpen={this.state.collapse} navbar>
+                  <MDBNavbarNav left>
+                    <MDBNavItem active>
+                      <MDBNavLink to="/selectaction">Home</MDBNavLink>
+                    </MDBNavItem>
+                    <MDBNavItem>
+                      <MDBNavLink to="#">Link</MDBNavLink>
+                    </MDBNavItem>
+                    <MDBNavItem>
+                      <MDBNavLink to="/profile">Profile</MDBNavLink>
+                    </MDBNavItem>
+                  </MDBNavbarNav>
+                </MDBCollapse>
+              </MDBNavbar>
+            </Router>
+          </header>
+        </div>
+        <div>
           <img
             id="headerimages"
             src="./assets/imgs/bg.jpg"
             style={{ width: "100%" }}
           />
         </div>
-      <div className="inner-div">
-        <div className="container1">
-          <p>City</p>
-          <Select options={cities} id="select1"  onChange={this.handleChange1.bind(this)}/>
-        </div>
+        <div className="inner-div">
+          <div className="container1">
+            <p>City</p>
+            <Select
+              options={cities}
+              id="select1"
+              onChange={this.handleChange1.bind(this)}
+            />
+          </div>
 
-        <div className="container1">
-          <p>Number of rooms</p>
-          <Select options={rooms} id="select2"  onChange={this.handleChange2.bind(this)}/>
-        </div>
+          <div className="container1">
+            <p>Number of rooms</p>
+            <Select
+              options={rooms}
+              id="select2"
+              onChange={this.handleChange2.bind(this)}
+            />
+          </div>
 
-        <div className="container1">
-          <p>Price</p>
-          <Select options={price} id="select3"  onChange={this.handleChange3.bind(this)}/>
+          <div className="container1">
+            <p>Price</p>
+            <Select
+              options={price}
+              id="select3"
+              onChange={this.handleChange3.bind(this)}
+            />
+          </div>
+          <button
+            type="submit²"
+            className="btn-search"
+            onClick={this.handleClick.bind(this)}
+          >
+            Search
+          </button>
         </div>
-        <button type="submit²" className="btn-search" onClick={this.handleClick.bind(this)}>
-          Search
-        </button>
-      </div>
         {displayPosts}
       </div>
     );
   }
 }
 
-
 export default RentView;
-
-
-
