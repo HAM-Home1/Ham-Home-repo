@@ -86,6 +86,14 @@ app.post("/update", (req, res) => {
   })
 });
 
+app.post("/delete", (req, res) => {
+  console.log(req.body)
+  posts.Post.deleteOne({ imagesrc: req.body.imagesrc } , function (err) {
+    if(err) console.log(err);
+    console.log("Successful deletion")
+  })
+ })
+
 app.get("/posts", (req, res) => {
   posts.Post.find({ username: "Mohamed Amine Oueslati" }, function (err, data) {
     if (err) {

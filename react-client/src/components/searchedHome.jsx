@@ -51,7 +51,7 @@ class SearchedHome extends React.Component {
     // Emit events
     console.log(message.value, handle, btn, output, feedback);
 
-     // getting the saved messages from the database and posting them on the output
+    // getting the saved messages from the database and posting them on the output
     var msg = await axios.post("/GetMessages", {
       description: description1,
     });
@@ -74,7 +74,7 @@ class SearchedHome extends React.Component {
         var dat = new Date().toString();
         // console.log(description1);
 
-        
+
         axios.post("/messages", {
           sender: handle.value,
           message: message.value,
@@ -85,9 +85,9 @@ class SearchedHome extends React.Component {
         $("#message").val("");
       }
     });
-    
-  
-    
+
+
+
 
     message.addEventListener("keypress", function () {
       socket.emit("typing", handle.value);
@@ -109,6 +109,20 @@ class SearchedHome extends React.Component {
     // // $("#startchat").hide();
   }
   render() {
+    var arrImage = this.props.post.imagesrc.split(',')
+    var displayImage = arrImage.map((item) => {
+      return (
+        <Carousel.Item>
+          <img
+            className="imagecaroussel"
+            className="d-block w-100"
+            src={item}
+            alt="First slide"
+          />
+        </Carousel.Item>
+      )
+    })
+
     return (
       <div>
         <Navbar bg="dark" variant="dark">
@@ -123,15 +137,8 @@ class SearchedHome extends React.Component {
         </Navbar>
         <div id="caroussel">
           <Carousel>
-            <Carousel.Item>
-              <img
-                id="imagecaroussel"
-                className="d-block w-100"
-                src={this.props.post.imagesrc}
-                alt="First slide"
-              />
-            </Carousel.Item>
-            <Carousel.Item>
+            {displayImage}
+            {/* <Carousel.Item>
               <img
                 id="imagecaroussel"
                 className="d-block w-100"
@@ -146,7 +153,7 @@ class SearchedHome extends React.Component {
                 src="https://d2u8towkwolubl.cloudfront.net/wp-content/uploads/2019/08/RentalHome.jpg"
                 alt="Third slide"
               />
-            </Carousel.Item>
+            </Carousel.Item> */}
           </Carousel>
         </div>
         <div id="context">

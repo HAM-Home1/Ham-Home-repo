@@ -54,7 +54,7 @@
   height: 400px;
   width: 49%;
 }
-#imagecaroussel {
+.imagecaroussel {
   height: 300px;
 }
 
@@ -326,11 +326,11 @@ mark {
   color: #575ed8;
 }
 
-label {
+/* label {
   box-sizing: border-box;
   display: block;
   padding: 10px 20px;
-}
+} */
 
 #message,
 #handel {
@@ -352,4 +352,36 @@ label {
   font-size: 16px;
   width: 100%;
   border-radius: 5px;
+}
+
+/*update component css */
+
+#updateDiv {
+  border: 2px solid grey;
+  border-radius: 5px;
+  overflow: scroll;
+}
+
+#updateDivPrice {
+  border: 2px solid grey;
+  border-radius: 5px;
+}
+
+#myModal {
+  display: none;
+  position: absolute;
+  margin-top: 220px;
+  margin-left: 50%;
+}
+
+#myModal1 {
+  display: none;
+  position: absolute;
+  margin-top: 220px;
+  margin-left: 50%;
+}
+
+
+#logoImage {
+  margin-top: 50px;
 }
