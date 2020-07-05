@@ -66,6 +66,27 @@ app.post("/posts", (req, res) => {
   posts.Post.create(req.body);
 });
 
+app.post("/update", (req, res) => {
+  console.log(req.body);
+  posts.Post.find({ imagesrc: req.body.imagesrc }, function (err, data) {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      posts.Post.updateMany(
+        { price: data[0].price, rooms:data[0].rooms, description: data[0].description, address: data[0].address },
+        { $set: { price: req.body.price, rooms: req.body.rooms, description: req.body.description, address: req.body.address } },
+        function(err, result) {
+          if (err) {
+            res.send(err);
+          } else {
+            res.send(result);
+          }
+        }
+      );
+    }
+  })
+});
+
 app.get("/posts", (req, res) => {
   posts.Post.find({ username: "Mohamed Amine Oueslati" }, function (err, data) {
     if (err) {
