@@ -1,68 +1,102 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import Login from "./login.jsx";
-import SelectAction from "../selectAction.jsx"
-
+import axios from "axios";
 class SignUp extends Component {
-
-  seeSelectAction() {
-    ReactDOM.render(<SelectAction />, document.getElementById("app"));
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      userName: "",
+      password: "",
+      confirmPassword: "",
+      phoneNumber: "",
+      address: "",
+      dateBirth: "",
+    };
   }
-  // seeLogin() {
-  //   ReactDOM.render(<Login />, document.getElementById("app"));
-  // }
+
+  onChangeUserName(e) {
+    this.setState({
+      userName: e.target.value,
+    });
+  }
+  onChangeEmail(e) {
+    this.setState({
+      email: e.target.value,
+    });
+  }
+
+  onChangePassword(e) {
+    this.setState({
+      password: e.target.value,
+    });
+  }
+  onChangeConfirmPassword(e) {
+    this.setState({
+      confirmPassword: e.target.value,
+    });
+  }
+  onChangePhoneNumber(e) {
+    this.setState({
+      phoneNumber: e.target.value,
+    });
+  }
+  onChangeAddress(e) {
+    this.setState({
+      address: e.target.value,
+    });
+  }
+  onChangeDateBirth(e) {
+    this.setState({
+      dateBirth: e.target.value,
+    });
+  }
+
+  registerUser() {
+    // e.preventDefault();
+
+    const userObject = {
+      userName: this.state.userName,
+      email: this.state.email,
+      password: this.state.password,
+      confirmPassword: this.state.confirmPassword,
+      phoneNumber: this.state.phoneNumber,
+      address: this.state.address,
+      dateBirth: this.state.dateBirth,
+    };
+
+    axios
+      .post("/api/users", userObject)
+      // .then((res) => {
+      //   console(res);
+      //   console.log(res.data);
+      // })
+      // .catch((error) => {
+      //   console.log(error);
+      // });
+      .then(() => {
+        this.getToken();
+      });
+  }
+
+  getToken = () => {
+    axios.get("/api/users").then((res) => {
+      console.log(res);
+    });
+  };
+
   render() {
     return (
-      <div>
-        <div className="App">
-        <nav className="navbar navbar-expand-lg navbar-light fixed-top">
-            <div className="container">
-            <Link to={"/"}>
-              <div className="navbar-brand">HAM Home</div>
-            </Link>
-              <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul className="navbar-nav ml-auto">
-                  <li className="nav-item">
-                  <Link to={"/login"}>
-                  <div className="nav-link">Login</div>                    
-                  </Link>
-
-                  </li>
-                  <li className="nav-item">
-                  <Link to={"/signup"}>
-                  <div className="nav-link">Sign up</div>
-                  </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-        </div>
       <div className="design">
         <form className="home">
           <h3>Sign Up</h3>
 
           <div className="form-group">
-            <label>First name</label>
+            <label>Username</label>
             <input
               type="text"
               className="form-control"
-              placeholder="First name"
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Last name</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Last name"
+              placeholder="User name"
+              onChange={this.onChangeUserName.bind(this)}
             />
           </div>
 
@@ -72,6 +106,7 @@ class SignUp extends Component {
               type="email"
               className="form-control"
               placeholder="Enter email"
+              onChange={this.onChangeEmail.bind(this)}
             />
           </div>
 
@@ -81,6 +116,7 @@ class SignUp extends Component {
               type="password"
               className="form-control"
               placeholder="Enter password"
+              onChange={this.onChangePassword.bind(this)}
             />
           </div>
 
@@ -89,19 +125,49 @@ class SignUp extends Component {
             <input
               type="password"
               className="form-control"
-              placeholder="Enter password"
+              placeholder="Confirm password"
+              onChange={this.onChangeConfirmPassword.bind(this)}
             />
           </div>
-          <Link to={"/selectaction"}>
-          <button type="submit" className="btn btn-primary btn-block">
+          <div className="form-group">
+            <label>Phone Number</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Phone Number"
+              onChange={this.onChangePhoneNumber.bind(this)}
+            />
+          </div>
+          <div className="form-group">
+            <label>Address</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Address"
+              onChange={this.onChangeAddress.bind(this)}
+            />
+          </div>
+          <div className="form-group">
+            <label>Date Of Birth</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Date of Birth"
+              onChange={this.onChangeDateBirth.bind(this)}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-primary btn-block"
+            onClick={this.registerUser.bind(this)}
+          >
             Sign Up
           </button>
-          </Link>
           <p className="forgot-password text-right">
             Already registered <a href="#">sign in?</a>
           </p>
         </form>
-      </div>
       </div>
     );
   }

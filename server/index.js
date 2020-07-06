@@ -1,24 +1,36 @@
 var express = require("express");
+var users = require("../routes/users.js");
+var auth = require("../routes/auth.js");
 var bodyParser = require("body-parser");
 var multer = require("multer");
-var samplePosts = require("../database-mongo/data.js")
+var samplePosts = require("../database-mongo/data.js");
 var posts = require("../database-mongo");
 var path = require("path");
 var socket = require("socket.io");
+var cors = require("cors");
+const config = require("config");
+
+if (!config.get("jwtPrivateKey")) {
+  console.error("FATAL ERROR: jwtPrivateKey is not defined");
+  process.exit(1);
+}
 
 var app = express();
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/../react-client/dist"));
+app.use(cors());
+app.use("/api/users", users);
+app.use("/api/auth", auth);
 
 const insertSamplePosts = function () {
   samplePosts.samplePosts.map((element) => {
     posts.Post.find({ description: element.description }, function (err, docs) {
       if (docs.length === 0) {
-        posts.Post.create(element)
-          .then(() => posts.db.disconnect());
+        posts.Post.create(element).then(() => posts.db.disconnect());
       }
-    })
-  })
+    });
+  });
 };
 insertSamplePosts();
 
@@ -60,7 +72,6 @@ io.on("connection", (socket) => {
 //   })
 // })
 
-
 app.post("/posts", (req, res) => {
   console.log(req.body);
   posts.Post.create(req.body);
@@ -73,9 +84,21 @@ app.post("/update", (req, res) => {
       res.sendStatus(500);
     } else {
       posts.Post.updateMany(
-        { price: data[0].price, rooms:data[0].rooms, description: data[0].description, address: data[0].address },
-        { $set: { price: req.body.price, rooms: req.body.rooms, description: req.body.description, address: req.body.address } },
-        function(err, result) {
+        {
+          price: data[0].price,
+          rooms: data[0].rooms,
+          description: data[0].description,
+          address: data[0].address,
+        },
+        {
+          $set: {
+            price: req.body.price,
+            rooms: req.body.rooms,
+            description: req.body.description,
+            address: req.body.address,
+          },
+        },
+        function (err, result) {
           if (err) {
             res.send(err);
           } else {
@@ -84,7 +107,7 @@ app.post("/update", (req, res) => {
         }
       );
     }
-  })
+  });
 });
 
 app.get("/posts", (req, res) => {
@@ -94,7 +117,7 @@ app.get("/posts", (req, res) => {
     } else {
       res.json(data);
     }
-  })
+  });
 });
 
 app.get("/rentPosts1", (req, res) => {
@@ -104,7 +127,7 @@ app.get("/rentPosts1", (req, res) => {
     } else {
       res.json(data);
     }
-  })
+  });
 });
 
 app.post("/messages", (req, res) => {
@@ -117,60 +140,41 @@ app.post("/search", (req, res) => {
     if (err) {
       res.sendStatus(500);
     } else {
-      var data = []
+      var data = [];
       houses.map((house) => {
         if (req.body.price) {
-          var [min, max] = req.body.price.split('-')
+          var [min, max] = req.body.price.split("-");
           if (house.price >= min && house.price <= max) {
-            if (house.address.split(',')[1] === req.body.city || !req.body.city) {
+            if (
+              house.address.split(",")[1] === req.body.city ||
+              !req.body.city
+            ) {
               if (!req.body.rooms || req.body.rooms === house.rooms) {
-                data.push(house)
+                data.push(house);
               }
             }
           }
-        } else if (!req.body.price)  {
-          if (house.address.split(',')[1] === req.body.city || !req.body.city) {
+        } else if (!req.body.price) {
+          if (house.address.split(",")[1] === req.body.city || !req.body.city) {
             if (!req.body.rooms || req.body.rooms === house.rooms) {
-              data.push(house)
+              data.push(house);
             }
           }
         }
-      })
-      console.log(data.length)
+      });
+      console.log(data.length);
       res.json(data);
     }
-  })
+  });
 });
 // Fixing the 'cannot GET /URL' error on refresh with React Router
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, '../react-client/dist/index.html'), function(err) {
-    if (err) {
-      res.status(500).send(err)
+app.get("/*", function (req, res) {
+  res.sendFile(
+    path.join(__dirname, "../react-client/dist/index.html"),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
     }
-  })
-})
-
-
-// app.get("/posts", (req, res) => {
-//   posts.selectAllPost((err, data) => {
-//     if (err) {
-//       res.sendStatus(500);
-//     } else {
-//       res.json(data);
-//     }
-//   });
-// });
-// app.get("/items", function (req, res) {
-//   items.selectAll(function (err, data) {
-//     console.log(data);
-//     if (err) {
-//       res.sendStatus(500);
-//     } else {
-//       res.json(data);
-//     }
-//   });
-// });
-
-// app.listen(3000, function () {
-//   console.log("listening on port 3000!");
-// });
+  );
+});

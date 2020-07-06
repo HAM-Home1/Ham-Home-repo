@@ -1,51 +1,54 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import ReactDOM from "react-dom";
-import SelectAction from "../selectAction.jsx";
-import SignUp from "./signup.jsx"
+import axios from "axios";
+import $ from "jquery";
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      userName: "",
+      password: "",
+    };
+  }
 
-  // seeSelectAction() {
-  //   ReactDOM.render(<SelectAction />, document.getElementById("app"));
-  // }
+  onChangeEmail(e) {
+    this.setState({
+      email: e.target.value,
+    });
+  }
 
-  // seeSignUp () {
-  //   ReactDOM.render(<SignUp />, document.getElementById("app"));
-  // }
+  onChangeUserName(e) {
+    this.setState({
+      userName: e.target.value,
+    });
+  }
+  onChangePassword(e) {
+    this.setState({
+      password: e.target.value,
+    });
+  }
+
+  verifyUser(e) {
+    e.preventDefault();
+    const userObject = {
+      email: this.state.email,
+      userName: this.state.userName,
+      password: this.state.password,
+    };
+
+    axios
+      .post("/api/auth", userObject)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   render() {
     return (
-      <div>
-        <div className="App">
-        <nav className="navbar navbar-expand-lg navbar-light fixed-top">
-            <div className="container">
-            <Link to={"/"}>
-              <div className="navbar-brand">HAM Home</div>
-            </Link>
-              <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul className="navbar-nav ml-auto">
-                  <li className="nav-item">
-                  <Link to={"/login"}>
-                  <div className="nav-link">Login</div>                    
-                  </Link>
-
-                  </li>
-                  <li className="nav-item">
-                  <Link to={"/signup"}>
-                  <div className="nav-link">Sign up</div>
-                  </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-        </div>
       <form className="home">
         <h3>Sign In</h3>
 
@@ -53,8 +56,21 @@ class Login extends Component {
           <label>Email address</label>
           <input
             type="email"
-            className="form-control"
+            className="email"
             placeholder="Enter email"
+            onChange={this.onChangeEmail.bind(this)}
+            value={this.state.email}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Username</label>
+          <input
+            type="username"
+            className="username"
+            placeholder="Enter Username"
+            onChange={this.onChangeUserName.bind(this)}
+            value={this.state.userName}
           />
         </div>
 
@@ -62,8 +78,10 @@ class Login extends Component {
           <label>Password</label>
           <input
             type="password"
-            className="form-control"
+            className="password"
             placeholder="Enter password"
+            onChange={this.onChangePassword.bind(this)}
+            value={this.state.password}
           />
         </div>
 
@@ -79,16 +97,18 @@ class Login extends Component {
             </label>
           </div>
         </div>
-        <Link to={"/selectaction"}>
-        <button type="submit" className="btn btn-primary btn-block" >
+
+        <button
+          type="submit"
+          className="btn btn-primary btn-block"
+          onClick={this.verifyUser.bind(this)}
+        >
           Submit
         </button>
-        </Link>
         <p className="forgot-password text-right">
           Forgot <a href="#">password?</a>
         </p>
       </form>
-      </div>
     );
   }
 }
