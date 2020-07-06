@@ -65,14 +65,24 @@ class SignUp extends Component {
     };
 
     axios
-      .post("/signup", userObject)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
+      .post("/api/users", userObject)
+      // .then((res) => {
+      //   console(res);
+      //   console.log(res.data);
+      // })
+      // .catch((error) => {
+      //   console.log(error);
+      // });
+      .then(() => {
+        this.getToken();
       });
   }
+
+  getToken = () => {
+    axios.get("/api/users").then((res) => {
+      console.log(res);
+    });
+  };
 
   render() {
     return (

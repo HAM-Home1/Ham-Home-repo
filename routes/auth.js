@@ -15,16 +15,20 @@ router.post("/", async (req, res) => {
   const { error } = validate(req.body);
 
   if (error) return res.status(400).send(error.details[0].message);
-
+  console.log("hh");
   let user = await User.findOne({ email: req.body.email });
   if (!user) return res.status(400).send("Invalid Email or Password");
+  console.log("hhhh");
 
   const validPassword = await bcrypt.compare(req.body.password, user.password);
-  console.log(validPassword);
-  console.log(req.body.password, user.password);
+
   if (!validPassword) return res.status(400).send("Invalid email or password");
-  res.send(true);
+
+  const token = user.generateAuthToken();
+  res.send(token);
 });
+
+//Information Expert Principle
 
 function validate(req) {
   const schema = {

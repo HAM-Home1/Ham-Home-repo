@@ -20,7 +20,7 @@ class Login extends Component {
 
   onChangeUserName(e) {
     this.setState({
-      lastName: e.target.value,
+      userName: e.target.value,
     });
   }
   onChangePassword(e) {
@@ -31,7 +31,6 @@ class Login extends Component {
 
   verifyUser(e) {
     e.preventDefault();
-
     const userObject = {
       email: this.state.email,
       userName: this.state.userName,
@@ -39,7 +38,7 @@ class Login extends Component {
     };
 
     axios
-      .post("/signin", userObject)
+      .post("/api/auth", userObject)
       .then((res) => {
         console.log(res.data);
       })
@@ -60,6 +59,7 @@ class Login extends Component {
             className="email"
             placeholder="Enter email"
             onChange={this.onChangeEmail.bind(this)}
+            value={this.state.email}
           />
         </div>
 
@@ -70,6 +70,7 @@ class Login extends Component {
             className="username"
             placeholder="Enter Username"
             onChange={this.onChangeUserName.bind(this)}
+            value={this.state.userName}
           />
         </div>
 
@@ -80,6 +81,7 @@ class Login extends Component {
             className="password"
             placeholder="Enter password"
             onChange={this.onChangePassword.bind(this)}
+            value={this.state.password}
           />
         </div>
 

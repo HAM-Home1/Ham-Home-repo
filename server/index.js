@@ -8,99 +8,20 @@ var posts = require("../database-mongo");
 var path = require("path");
 var socket = require("socket.io");
 var cors = require("cors");
-const middleware = require("../middlewares/middleware.js");
+const config = require("config");
 
-require("dotenv").config();
+if (!config.get("jwtPrivateKey")) {
+  console.error("FATAL ERROR: jwtPrivateKey is not defined");
+  process.exit(1);
+}
 
 var app = express();
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/../react-client/dist"));
 app.use(cors());
 app.use("/api/users", users);
 app.use("/api/auth", auth);
-
-// app.post("/signup", (req, res) => {
-//   // console.log(req.body)
-//   // posts.User.create(req.body)
-//   bcrypt.hash(req.body.password, 10).then((hash) => {
-//     const user = new posts.User({
-//       userName: req.body.userName,
-//       email: req.body.email,
-//       password: hash,
-//       confirmPassword: req.body.confirmPassword,
-//       phoneNumber: req.body.phoneNumber,
-//       address: req.body.address,
-//       dateBirth: req.body.dateBirth,
-//     });
-//     user
-//       .save()
-//       .then((response) => {
-//         res.status(201).json({
-//           message: "User successfully created!",
-//           result: response,
-//         });
-//       })
-//       .catch((error) => {
-//         res.status(500).json({
-//           error: error,
-//         });
-//       });
-//   });
-// });
-
-// app.post("/signin", (req, res, next) => {
-//   let getUser;
-//   userSchema
-//     .findOne({
-//       userName: req.body.userName,
-//     })
-//     .then((user) => {
-//       if (!user) {
-//         return res.status(401).json({
-//           message: "Authentication failed",
-//         });
-//       }
-//       getUser = user;
-//       return bcrypt.compare(req.body.password, user.password);
-//     })
-//     .then((response) => {
-//       if (!response) {
-//         return res.status(401).json({
-//           message: "Authentication failed",
-//         });
-//       }
-//       let jwtToken = jwt.sign(
-//         {
-//           email: getUser.email,
-//           userId: getUser_id,
-//         },
-//         process.env.SECRET_KEY,
-//         { expiresIn: "1h" }
-//       );
-//       res.status(200).json({
-//         token: jwtToken,
-//         // expiresIn: 3600,
-//         // _id: getUser_id,
-//       });
-//     })
-//     .catch((err) => {
-//       return res.status(401).json({
-//         message: "Authentication failed",
-//       });
-//     });
-// });
-
-// app.route("/user-profile/:id").get(authorize, (req, res, next) => {
-//   userSchema.findById(req.params.id, (error, data) => {
-//     if (error) {
-//       return next(error);
-//     } else {
-//       res.status(200).json({
-//         msg: data,
-//       });
-//     }
-//   });
-// });
 
 const insertSamplePosts = function () {
   samplePosts.samplePosts.map((element) => {
